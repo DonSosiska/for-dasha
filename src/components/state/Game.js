@@ -2,11 +2,14 @@ import React, { Component } from 'react'
 import Target from './Target'
 import {defaultParams, initialGameState} from '../../js/params.js'
 import {gameField, panelStyle, messageStyle} from '../../js/styles.js'
+import bg from "./bg.jpg"
 
 let gameParams = {...defaultParams}
 
 class Game extends React.Component {
-
+    сonstructor(){
+        this.pictureArray = ["./1.png", "./2.png", "./3.png", "./4.png"]
+    }
     runNewGame = () => {
         this.setState({ ...initialGameState(), gameover: false, start: true, targetsCnt: 0})
         this.makeGameFlow(this.gameOptions())
@@ -89,13 +92,14 @@ class Game extends React.Component {
 
     render() {
         return (
-            <div>
+            <div style={{backgroundImage:`url("${bg}")`,backgroundRepeat:"repeat",backgroundSize:"contain"}}>
                 <div style={panelStyle}>
                     {   this.state.gameover !== true
                         && this.state.start === true
-                        && `Попыток осталось: ${this.state.life} Попаданий: ${this.state.score}`
+                        && `Котиков сбежало: ${5-this.state.life}/5 Поймала: ${this.state.score}`
                     }
                 </div>
+
                 <div className="game-field" style={gameField}>
 
                     {
@@ -104,14 +108,14 @@ class Game extends React.Component {
                                 style={messageStyle}
                                 onClick={() => this.runNewGame()}
                             >
-                                <span style={{cursor: 'pointer'}}>Начать новую игру</span>
+                                <span style={{cursor: 'pointer'}}>На охоту!</span>
                             </div>
                     }
 
                     {
                         this.state.gameover === true
                         &&  <div style={messageStyle}>
-                                <div>Мишеней сбито: {this.state.lastscore}</div>
+                                <div>В букете {this.state.lastscore} {(this.state.lastscore == 1) ? "котик" : (this.state.lastscore == 2 || this.state.lastscore == 3 || this.state.lastscore == 4)?"котика" : "котиков"}</div>
                                 <div onClick={() => this.runNewGame()}><span style={{textDecoration: 'underline', cursor: 'pointer'}}>Играть еще</span></div>
                             </div>
                     }

@@ -1,6 +1,6 @@
 export const defaultParams = {
-    fieldWidth: 1200,
-    fieldHeight: 680,
+    fieldWidth: 390,
+    fieldHeight: 675,
     targetWidth: 90,
     targetHeight: 90,
     fieldColor: '#fff',
